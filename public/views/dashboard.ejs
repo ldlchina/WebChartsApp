@@ -1,0 +1,74 @@
+<% include head %>
+
+<link href="/stylesheets/dashboard.css" rel="stylesheet" type="text/css">
+
+<script src="http://code.highcharts.com/highcharts.js"></script>
+<script src="http://code.highcharts.com/modules/exporting.js"></script>
+
+<script src="/javascripts/3p/heartcode-canvasloader-min.js"></script>
+<script src="/javascripts/dashboard.js"></script>
+
+
+<div class='dashboard-area' id="dashboard">
+	<div class="dashboard-toolbar">
+		<ul class='dashboard-toolbar-ul'>
+			<li class='dashboard-toolbar-left'>
+				<span class="dashboard-name"><%= dashboardName %></span>
+			</li>
+			<ul class='dashboard-toolbar-right'>
+				<li>
+					<a id="dashboard-addWidget">Add Widget</a>
+				</li>
+				<li>
+					<a id="dashboard-dashboards" href="/dashboards">Dashboards</a>
+				</li>
+			</ul>
+		</ul>
+	</div>
+	<div class="widgets-area">
+		<ul class='widget-list'>
+			<script>clearWidgetList();</script>
+			<% for(var i=0; i<widgets.length; i++) { %>
+				<li id='<%= widgets[i].id %>'>
+					<div class='dashboard-widget'>
+						<div class='dashboard-widget-content'>
+						</div>
+						<ul class='dashboard-widget-actions'>
+							<li><a class='dashboard-widget-actions-edit'>Edit</a></li>
+							<li><a class='dashboard-widget-actions-delete'>Delete</a></li>
+						</ul>
+					</div>
+				</li>
+			<% } %>
+			<script>
+				loadWidgets();
+				$('.dashboard-widget-actions-edit').click(editWidgetEvent);
+				$('.dashboard-widget-actions-delete').click(deleteWidgetEvent);
+			</script>
+		</ul>
+	</div>
+</div>
+
+<div class="modal" id='model-create-widget'>
+	<div class="modal-inner">
+		<div class="modal-display-area">
+			<h2>Create a new widget</h2>
+			<form class='form-modal' id='create_widget_form' method="POST" action="/widgets">
+				<div class='form-body form-body-modal'>
+					<label for="widget_dataUrl">
+						Data Url
+					</label>
+					<input placeholder="https://host.com" autocapitalize="off" autocorrect="off" autofocus="autofocus" class="input-block" id="widget_dataUrl" name="dataurl" tabindex="1" type="text">
+					<label for="widget_interval">
+						Interval (Unit: Minute)
+					</label>
+					<input value="1" autocapitalize="off" autocorrect="off" autofocus="autofocus" class="input-block" id="widget_interval" name="interval" tabindex="2" type="text">
+					<div class='button' id='widgets-create-cancel' tabindex="4">Cancel</div>
+					<input class="button" id='widgets-create-commit' tabindex="3" type="submit" value="OK">
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+<% include foot %>

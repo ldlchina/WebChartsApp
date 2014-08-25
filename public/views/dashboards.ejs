@@ -1,0 +1,59 @@
+<% include head %>
+
+<link href="/stylesheets/dashboards.css" rel="stylesheet" type="text/css">
+<script src="/javascripts/dashboards.js"></script>
+
+<div class="dashboards-area" id="dashboards">
+	<table class='dashboards-tb'>
+		<tr class='dashboards-tr-header'>
+			<th class='dashboards-tr-left'>
+				<span>Dashboards</span>
+			</th>
+			<th class='dashboards-tr-right'>
+				<ol>
+					<li class='dashboards-action-item'><a id='dashboards-add'>Add</a></li>
+				</ol>
+			</th>
+		</tr>
+		<script>clearDashboardList();</script>
+		<% for(var i=0; i<dashboardList.length; i++) { %>
+			<tr id='<%= dashboardList[i].id %>'>
+				<td class='dashboards-tr-left'>
+					<a class='dashboards-item-name' href='/dashboards/<%= dashboardList[i].id %>'><%= dashboardList[i].name %></a>
+				</td>
+				<td class='dashboards-tr-right'>
+					<ol>
+						<li class='dashboards-action-item edit'><a>Edit</a></li>
+						<li class='dashboards-action-item delete'><a>Delete</a></li>
+					</ol>
+				</td>
+			</tr>
+		<% } %>
+		<script>
+			resetClassesToTableRows();
+			//attachDataToEachItem(dashboardList);
+			$('.dashboards-action-item.edit').click(editDashboardEvent);
+			$('.dashboards-action-item.delete').click(deleteDashboardEvent);
+		</script>
+	</table>
+</div>
+
+<div class="modal" id='model-create-dashboard'>
+	<div class="modal-inner">
+		<div class="modal-display-area">
+			<h2>Create a new Dashboard</h2>
+			<form class='form-modal' method="POST" action="/dashboards">
+				<div class='form-body form-body-modal'>
+					<label for="dashboard_name">
+						Dashboard name
+					</label>
+					<input placeholder="Dashboard name" autocapitalize="off" autocorrect="off" autofocus="autofocus" class="input-block" id="dashboard_name" name="name" tabindex="1" type="text">
+					<div class='button' id='dashboards-create-cancel' tabindex="3">Cancel</div>
+					<input class="button" id='dashboards-create-commit' tabindex="2" type="submit" value="OK">
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+<% include foot %>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title><%= title %></title>
+	
+	<link href="/stylesheets/main.css" rel="stylesheet" type="text/css">
+	<script src="/javascripts/3p/jquery-1.8.2.min.js"></script>
+	<script src="/javascripts/main.js"></script>
+</head>
+
+<body>
+	<header>
+		<div id="header-area">
+			<a id="logo" href="">WebCharts</a>
+			<div id="header-auth">
+				<a id="nav-userAccount"><%= userAccount %></a>
+				<a id="nav-signup" class="button" href="/users/signup"><%= signupText %></a>
+				<a id="nav-login" class="button" href="/users/login"><%= loginText %></a>
+				<a id="nav-logout" class="button" href="/users/logout"><%= logoutText %></a>
+			</div>
+		</div>
+		<hr/>
+	</header>
+	<div id="main-content">

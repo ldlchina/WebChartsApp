@@ -1,0 +1,42 @@
+<% include head %>
+
+<link href="/stylesheets/login.css" rel="stylesheet" type="text/css">
+<script src="/javascripts/signup.js"></script>
+
+<div class="login-area" id="signup">
+	<form accept-charset="UTF-8" action="/users/signup" method="post">
+		<div class="login-form-header">
+			<h1>Sign up</h1>
+		</div>
+		<div class="form-body">
+			<label for="signup_firstname">
+				First Name
+			</label>
+			<input autocapitalize="off" autocorrect="off" autofocus="autofocus" class="input-block" id="signup_firstname" name="firstname" placeholder="First Name" tabindex="1" type="text">
+
+			<label for="signup_lastname">
+				Last Name
+			</label>
+			<input autocapitalize="off" autocorrect="off" autofocus="autofocus" class="input-block" id="signup_lastname" name="lastname" placeholder="Last Name" tabindex="2" type="text">
+			
+			<label for="signup_email">
+				Email
+			</label>
+			<input autocapitalize="off" autocorrect="off" autofocus="autofocus" class="input-block" id="signup_email" name="email" placeholder="Email" tabindex="3" type="email">
+			
+			<label for="signup_password">
+				Enter the Password
+			</label>
+			<input class="input-block" id="signup_password" name="password" placeholder="Enter the Password" tabindex="4" type="password">
+			
+			<label for="signup_repassword">
+				Re-enter the Password
+			</label>
+			<input class="input-block" id="signup_repassword" name="repassword" placeholder="Re-enter the Password" tabindex="5" type="password">
+			
+			<input class="button" tabindex="6" type="submit" value="Sign up">
+		</div>
+	</form>
+</div>
+
+<% include foot %>

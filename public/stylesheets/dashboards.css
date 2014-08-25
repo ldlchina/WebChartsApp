@@ -1,0 +1,51 @@
+.dashboards-area {
+	width: 800px;
+	margin: 60px auto;
+	box-sizing: border-box;
+}
+
+.dashboards-tb {
+	width: 100%;
+	border:0;
+	border-spacing: 0;
+	border-radius: 3px;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 1);
+}
+
+.dashboards-tr-header {
+	background-color: rgb(192, 192, 192);
+}
+
+.dashboards-tr-odd {
+	background-color: rgb(218, 218, 218);
+}
+
+.dashboards-tr-even {
+	background-color: rgb(240, 240, 240);
+}
+
+.dashboards-tr-left {
+	width: 70%;
+	padding-left: 10px;
+}
+
+.dashboards-tr-right {
+	width: 30%;
+	padding-right: 10px;
+}
+
+.dashboards-tr-left span {
+	float: left;
+}
+
+.dashboards-tr-right ol {
+	float: right;
+}
+
+.dashboards-action-item {
+	display: inline-block;
+}
+
+#dashboards-create-commit {
+	width: 70px;
+}

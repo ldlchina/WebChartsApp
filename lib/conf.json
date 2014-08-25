@@ -1,0 +1,13 @@
+{
+    "build": "dev",
+    "port": "8443",
+    "secure": true,
+    "dev": {
+        "webcharts_home": "http://localhost:3000",
+        "webcharts_db": {
+            "host": "localhost",
+            "port": 27017,
+            "name": "webcharts"
+        }
+    }
+}

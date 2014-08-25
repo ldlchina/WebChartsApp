@@ -1,0 +1,78 @@
+#dashboard li {
+	display: inline-block;
+}
+
+.dashboard-area {
+	margin-left: 10%;
+	margin-right: 10%;
+	min-width: 600px;
+}
+
+.dashboard-toolbar {
+	background-color: rgb(192, 192, 192);
+	border-radius: 3px;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 1);
+}
+
+.dashboard-toolbar-ul {
+	padding-left: 0;
+}
+
+.dashboard-toolbar-right {
+	margin-top: 5px;
+	padding-right: 10px;
+	float: right;
+	display: inline-block;
+}
+
+.dashboard-toolbar-right li {
+	padding-left: 10px;
+}
+
+.dashboard-toolbar-left span{
+	margin-bottom: 5px;
+	padding-left: 10px;
+	float: left;
+}
+
+.dashboard-name {
+	font-weight: bold;
+	font-size: 18px;
+	height: 18px;
+}
+
+.widgets-area {
+}
+
+.widget-list {
+	padding-left: 0;
+	text-align:center;
+}
+
+.dashboard-widget {
+	width: 600px;
+	height: 450px;
+	margin-bottom: 3px;
+	border-radius: 3px;
+	box-shadow: 1px 1px 3px rgba(0, 0, 0, 1);
+}
+
+.dashboard-widget-content {
+	width: 600px;
+	height: 420px;
+}
+
+#widgets-create-commit {
+	width: 70px;
+}
+
+.dashboard-widget-actions {
+	background: rgba(0, 0, 0, 0);
+	text-align: right;
+	height: 15px
+	z-index: 100;
+}
+
+.dashboard-widget-actions li {
+	margin-right: 10px;
+}
