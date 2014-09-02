@@ -19,31 +19,43 @@ function clearWidgetList(){
 	$('.dashboard-widget').remove();
 }
 
-function loadWidget(widget){
-	var parentLi = $(widget).parents('li')[0];
-	widget.id = 'widget_' + parentLi.id;
+function loadWidget(id){
+	var widgetLi = $('#'+id)[0];
+	if(!widgetLi){
+		return;
+	}
 	
-	var cl = new CanvasLoader(widget.id);
+	var widgetContent = $(widgetLi).find('.dashboard-widget-content')[0];
+	widgetContent.id = 'widgetContent_' + id;
+	
+	$(widgetContent).empty();
+	attachDragAndDropEvents(widgetLi);
+	
+	var cl = new CanvasLoader(widgetContent.id);
 	cl.show(); 
 
-	var loaderObj = $(widget).children("#canvasLoader")[0];
-	$(loaderObj).css('padding-top', '200px');
-	var canvas1 = $(loaderObj).children('canvas')[1];
-	$(canvas1).remove();
+	var loaderObj = $(widgetContent).children("#canvasLoader")[0];
+	$(loaderObj).css('padding-top', '180px');
 	
-	$.get('/widgets/' + parentLi.id, function(data, status){
+	$.get('/widgets/' + id, function(data, status){
 		if(status == 'success'){
 			var dataObj = JSON.parse(data);
-			$(widget).highcharts(dataObj);
+			if($('#widgetContent_' + id).length){
+				$('#widgetContent_' + id).highcharts(dataObj); 
+				setTimeout("loadWidget('" + id + "')", '10000');
+			}
+		}
+		else{
+			$(widgetContent).html(data);
 		}
 	});
 }
 
 function loadWidgets(){
-	var widgets = $('.dashboard-widget-content');
+	var widgets = $('.dashboard-widget-li');
 	for(var i = 0; i < widgets.length; i++){
 		var widget = widgets[i];
-		loadWidget(widget);
+		loadWidget(widget.id);
 	}
 }
 
@@ -61,54 +73,31 @@ function deleteWidgetEvent(sender){
 	});
 }
 
-var content = {
-	chart: {
-	},
-	credits: {
-		enabled: false
-	},
-	title: {
-		text: 'Monthly Average Temperature',
-		x: -20 //center
-	},
-	subtitle: {
-		text: 'Source: WorldClimate.com',
-		x: -20
-	},
-	xAxis: {
-		categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-			'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-	},
-	yAxis: {
-		title: {
-			text: 'Temperature (°C)'
-		},
-		plotLines: [{
-			value: 0,
-			width: 1,
-			color: '#808080'
-		}]
-	},
-	tooltip: {
-		valueSuffix: '°C'
-	},
-	legend: {
-		layout: 'vertical',
-		align: 'right',
-		verticalAlign: 'middle',
-		borderWidth: 0
-	},
-	series: [{
-		name: 'Tokyo',
-		data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6]
-	}, {
-		name: 'New York',
-		data: [-0.2, 0.8, 5.7, 11.3, 17.0, 22.0, 24.8, 24.1, 20.1, 14.1, 8.6, 2.5]
-	}, {
-		name: 'Berlin',
-		data: [-0.9, 0.6, 3.5, 8.4, 13.5, 17.0, 18.6, 17.9, 14.3, 9.0, 3.9, 1.0]
-	}, {
-		name: 'London',
-		data: [3.9, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0, 16.6, 14.2, 10.3, 6.6, 4.8]
-	}]
+// on source element
+function ondragstart (ev) {
+	ev.dataTransfer.effectAllowed = "move";
+	ev.dataTransfer.setData("srcId", ev.currentTarget.id);
+	ev.dataTransfer.setDragImage(ev.currentTarget, 0, 0);
+}
+function ondragend(ev) {
+	ev.dataTransfer.clearData("srcId");
+}
+
+// on target element
+function ondragover(ev) {
+	ev.preventDefault();
+}
+function ondrop(ev) {
+	var srcId = ev.dataTransfer.getData("srcId");
+	var srcObj = $('#' + srcId)[0];
+	if(srcObj != ev.currentTarget){
+		$(ev.currentTarget).before(srcObj);
+	}
+}
+
+function attachDragAndDropEvents(e){
+	e.ondragstart = ondragstart;
+	e.ondragend = ondragend;
+	e.ondragover = ondragover;
+	e.ondrop = ondrop;
 }

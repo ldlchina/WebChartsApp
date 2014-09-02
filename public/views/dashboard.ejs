@@ -11,32 +11,33 @@
 
 <div class='dashboard-area' id="dashboard">
 	<div class="dashboard-toolbar">
-		<ul class='dashboard-toolbar-ul'>
+		<ol class='dashboard-toolbar-ol'>
 			<li class='dashboard-toolbar-left'>
 				<span class="dashboard-name"><%= dashboardName %></span>
 			</li>
-			<ul class='dashboard-toolbar-right'>
+			<ol class='dashboard-toolbar-right'>
 				<li>
 					<a id="dashboard-addWidget">Add Widget</a>
 				</li>
 				<li>
 					<a id="dashboard-dashboards" href="/dashboards">Dashboards</a>
 				</li>
-			</ul>
-		</ul>
+			</ol>
+		</ol>
 	</div>
 	<div class="widgets-area">
-		<ul class='widget-list'>
+		<ol class='widget-list'>
 			<script>clearWidgetList();</script>
 			<% for(var i=0; i<widgets.length; i++) { %>
-				<li id='<%= widgets[i].id %>'>
+				<li class='dashboard-widget-li' id='<%= widgets[i].id %>' draggable="true">
 					<div class='dashboard-widget'>
+						<div class='dashboard-widget-dnd'></div>
 						<div class='dashboard-widget-content'>
 						</div>
-						<ul class='dashboard-widget-actions'>
+						<ol class='dashboard-widget-actions'>
 							<li><a class='dashboard-widget-actions-edit'>Edit</a></li>
 							<li><a class='dashboard-widget-actions-delete'>Delete</a></li>
-						</ul>
+						</ol>
 					</div>
 				</li>
 			<% } %>
@@ -45,7 +46,7 @@
 				$('.dashboard-widget-actions-edit').click(editWidgetEvent);
 				$('.dashboard-widget-actions-delete').click(deleteWidgetEvent);
 			</script>
-		</ul>
+		</ol>
 	</div>
 </div>
 
