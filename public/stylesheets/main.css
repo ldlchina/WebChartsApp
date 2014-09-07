@@ -81,6 +81,10 @@ ul {
 	list-style-type: none;
 }
 
+ol {
+	list-style-type: none;
+}
+
 nav a {
 	margin-left: 5px;
 }

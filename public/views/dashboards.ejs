@@ -2,6 +2,7 @@
 
 <link href="/stylesheets/dashboards.css" rel="stylesheet" type="text/css">
 <script src="/javascripts/dashboards.js"></script>
+<script src="/javascripts/dashboardsui.js"></script>
 
 <div class="dashboards-area" id="dashboards">
 	<table class='dashboards-tb'>
@@ -15,7 +16,7 @@
 				</ol>
 			</th>
 		</tr>
-		<script>clearDashboardList();</script>
+		<!--script>clearDashboardList();</script-->
 		<% for(var i=0; i<dashboardList.length; i++) { %>
 			<tr id='<%= dashboardList[i].id %>'>
 				<td class='dashboards-tr-left'>
@@ -23,8 +24,7 @@
 				</td>
 				<td class='dashboards-tr-right'>
 					<ol>
-						<li class='dashboards-action-item edit'><a>Edit</a></li>
-						<li class='dashboards-action-item delete'><a>Delete</a></li>
+						<li class='dashboards-action-item edit'><a>Edit</a></li><li class='dashboards-action-item delete'><a>Delete</a></li>
 					</ol>
 				</td>
 			</tr>
@@ -32,8 +32,6 @@
 		<script>
 			resetClassesToTableRows();
 			//attachDataToEachItem(dashboardList);
-			$('.dashboards-action-item.edit').click(editDashboardEvent);
-			$('.dashboards-action-item.delete').click(deleteDashboardEvent);
 		</script>
 	</table>
 </div>
@@ -42,7 +40,7 @@
 	<div class="modal-inner">
 		<div class="modal-display-area">
 			<h2>Create a new Dashboard</h2>
-			<form class='form-modal' method="POST" action="/dashboards">
+			<form class='form-modal' id='form-create-dashboard'>
 				<div class='form-body form-body-modal'>
 					<label for="dashboard_name">
 						Dashboard name

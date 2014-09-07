@@ -39,10 +39,9 @@ function loadWidget(id){
 	
 	$.get('/widgets/' + id, function(data, status){
 		if(status == 'success'){
-			var dataObj = JSON.parse(data);
 			if($('#widgetContent_' + id).length){
-				$('#widgetContent_' + id).highcharts(dataObj); 
-				setTimeout("loadWidget('" + id + "')", '10000');
+				$('#widgetContent_' + id).highcharts(data.highcharts); 
+				setTimeout("loadWidget('" + id + "')", parseInt(data.widget.interval) * 1000);
 			}
 		}
 		else{

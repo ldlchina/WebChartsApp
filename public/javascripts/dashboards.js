@@ -8,6 +8,8 @@ $(document).ready(function(){
 	$('#dashboards-create-cancel').click(function(sender){
 		$('#model-create-dashboard').hide();
 	});
+	
+	$('#form-create-dashboard').submit(onCreateDashboardSubmit);
 });
 
 function clearDashboardList(){
@@ -38,6 +40,51 @@ function deleteDashboardEvent(sender){
 	});
 }
 
+function onCreateDashboardSubmit(sender){
+	alert('create');
+	var body = {};
+	
+	var inputs = $('#form-create-dashboard').find('input');
+	for(var i=0; i<inputs.length; i++) {
+		if(inputs[i].name == 'name'){
+			body.name = inputs[i].value;
+		}
+	}
+	
+	var dataStr = JSON.stringify(body);
+	$.ajax({
+		type:'post',
+		url:"/dashboards", 
+		beforeSend:function(xhr){
+		},
+		complete:function(xhr, ts){
+		},
+		contentType:'application/x-www-form-urlencoded',
+		data:body,
+		dataFilter:function(data, type){
+			return data;
+		},
+		datatype:'json',
+		error:function(xhr, err, e){
+			alert(xhr.responseText);
+		},
+		success:function(data){
+			var options = {
+				dashboardId:data.id,
+				dashboardName:data.name,
+				dashboardEdit:'Edit',
+				dashboardDelete:'Delete'
+			};
+			$('.dashboards-tb').append(webcharts.ui.dashboards.dashboardItem(options));
+			resetClassesToTableRows();
+
+			$('#model-create-dashboard').hide();
+		}
+	});
+	
+	return false;
+}
+
 function attachDataToEachItem(dashboardList){
 	alert('attach');
 	for(var i=0; i<dashboardList.length; i++) {
@@ -55,4 +102,9 @@ function resetClassesToTableRows(){
 	
 	$('tr:first').removeClass('dashboards-tr-even');
 	$('tr:first').addClass('dashboards-tr-header');
+	
+	$('.dashboards-action-item.edit').unbind('click');
+	$('.dashboards-action-item.delete').unbind('click');
+	$('.dashboards-action-item.edit').click(editDashboardEvent);
+	$('.dashboards-action-item.delete').click(deleteDashboardEvent);
 }

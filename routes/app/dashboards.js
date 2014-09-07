@@ -59,7 +59,7 @@ var addRoute = function(options){
 				next(err);
 			}
 			else{
-				res.redirect('/dashboards');
+				res.send(200, dashboard);
 			}
 		});
     });

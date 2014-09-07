@@ -1,0 +1,19 @@
+{namespace webcharts.ui.dashboards}
+
+/**
+  * The dashboard item content.
+  * @param dashboardId The id of the dashboard.
+  * @param dashboardName The name of the dashboard.
+  */
+{template .dashboardItem}
+<tr id={$dashboardId} class='dashboard-tr-new'>
+	<td class='dashboards-tr-left'>
+		<a class='dashboards-item-name' href='/dashboards/{$dashboardId}'>{$dashboardName}</a>
+	</td>
+	<td class='dashboards-tr-right'>
+		<ol>
+			<li class='dashboards-action-item edit'><a>Edit</a></li><li class='dashboards-action-item delete'><a>Delete</a></li>
+		</ol>
+	</td>
+</tr>
+{/template}
