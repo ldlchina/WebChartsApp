@@ -48,6 +48,30 @@ app.use(function(req, res, next){
 	next();
 });
 
+// auth validation for API requests
+app.use(function(req, res, next){
+	if(!req.url.match('/api')){
+		next();
+		return;
+	}
+	
+	if(req.url.match('/validate')){
+		next();
+		return;
+	}
+	
+	var authMgr = serverApp.authManager;
+	authMgr.authByAPIKey(req.headers.apikey, function(err, auth){
+		if(err || !auth){
+			next(new Error('AuthenticationFailed'));
+		}
+		else{
+			req.auth = auth;
+			next();
+		}
+	});
+});
+
 require('./routes/router.js')({'expressApp': app, 'serverApp':serverApp});
 
 /// error handlers
