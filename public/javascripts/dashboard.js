@@ -37,15 +37,16 @@ function loadWidget(id){
 	var loaderObj = $(widgetContent).children("#canvasLoader")[0];
 	$(loaderObj).css('padding-top', '180px');
 	
-	$.get('/widgets/' + id, function(data, status){
-		if(status == 'success'){
+	sendRequest('get', '/widgets/' + id, null, function(err, data){
+		if(err || !data){
+			$(widgetContent).html('error');
+			setTimeout("loadWidget('" + id + "')", 60 * 1000);//try again in one minute
+		}
+		else{
 			if($('#widgetContent_' + id).length){
 				$('#widgetContent_' + id).highcharts(data.highcharts); 
 				setTimeout("loadWidget('" + id + "')", parseInt(data.widget.interval) * 1000);
 			}
-		}
-		else{
-			$(widgetContent).html(data);
 		}
 	});
 }
@@ -65,8 +66,8 @@ function editWidgetEvent(sender){
 function deleteWidgetEvent(sender){
 	var parentLi = $(this).parents('li')[0];
 	parentLi = $(parentLi).parents('li')[0];
-	$.post('/widgets/' + parentLi.id + '/delete', function(data,status){
-		if(status == 'success'){
+	sendRequest('post', '/widgets/' + parentLi.id + '/delete', null, function(err, data){
+		if(!err){
 			$(parentLi).remove();
 		}
 	});

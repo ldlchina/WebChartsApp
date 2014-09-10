@@ -19,8 +19,7 @@ function clearDashboardList(){
 
 function openDashboardEvent(sender){
 	var parentTr = $(this).parents('tr')[0];
-	$.get('dashboards/' + parentTr.id, function(data,status){
-		alert("Data: " + data + "\nStatus: " + status);
+	sendRequest('get', 'dashboards/' + parentTr.id, null, function(err, data){
 	});
 }
 
@@ -32,8 +31,8 @@ function editDashboardEvent(sender){
 
 function deleteDashboardEvent(sender){
 	var parentTr = $(this).parents('tr')[0];
-	$.post('/dashboards/' + parentTr.id + '/delete', function(data,status){
-		if(status == 'success'){
+	sendRequest('post', '/dashboards/' + parentTr.id + '/delete', null, function(err, data){
+		if(!err){
 			$(parentTr).remove();
 			resetClassesToTableRows();
 		}
@@ -41,7 +40,6 @@ function deleteDashboardEvent(sender){
 }
 
 function onCreateDashboardSubmit(sender){
-	alert('create');
 	var body = {};
 	
 	var inputs = $('#form-create-dashboard').find('input');
@@ -51,24 +49,8 @@ function onCreateDashboardSubmit(sender){
 		}
 	}
 	
-	var dataStr = JSON.stringify(body);
-	$.ajax({
-		type:'post',
-		url:"/dashboards", 
-		beforeSend:function(xhr){
-		},
-		complete:function(xhr, ts){
-		},
-		contentType:'application/x-www-form-urlencoded',
-		data:body,
-		dataFilter:function(data, type){
-			return data;
-		},
-		datatype:'json',
-		error:function(xhr, err, e){
-			alert(xhr.responseText);
-		},
-		success:function(data){
+	sendRequest('post', '/dashboards', body, function(err, data){
+		if(data){
 			var options = {
 				dashboardId:data.id,
 				dashboardName:data.name,

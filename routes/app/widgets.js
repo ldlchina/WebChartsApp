@@ -68,8 +68,14 @@ var addRoute = function(options){
 							return;
 						}
 						else{
-							var data = {widget:widget, highcharts:JSON.parse(body)}
-							res.send(200, data);
+							try{
+								var data = {widget:widget, highcharts:JSON.parse(body)};
+								res.send(200, data);
+							}
+							catch(e){
+								next(new Error('unhandledata'));
+								return;
+							}
 						}
 					}
 				);
