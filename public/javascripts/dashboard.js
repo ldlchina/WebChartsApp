@@ -76,11 +76,10 @@ function deleteWidgetEvent(sender){
 // on source element
 function ondragstart (ev) {
 	ev.dataTransfer.effectAllowed = "move";
-	ev.dataTransfer.setData("srcId", ev.currentTarget.id);
-	ev.dataTransfer.setDragImage(ev.currentTarget, 0, 0);
+	ev.dataTransfer.setData("text", ev.currentTarget.id);
 }
 function ondragend(ev) {
-	ev.dataTransfer.clearData("srcId");
+	ev.dataTransfer.clearData("text");
 }
 
 // on target element
@@ -88,7 +87,7 @@ function ondragover(ev) {
 	ev.preventDefault();
 }
 function ondrop(ev) {
-	var srcId = ev.dataTransfer.getData("srcId");
+	var srcId = ev.dataTransfer.getData("text");
 	var srcObj = $('#' + srcId)[0];
 	if(srcObj != ev.currentTarget){
 		$(ev.currentTarget).before(srcObj);
