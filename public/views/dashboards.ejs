@@ -16,7 +16,6 @@
 				</ol>
 			</th>
 		</tr>
-		<!--script>clearDashboardList();</script-->
 		<% for(var i=0; i<dashboardList.length; i++) { %>
 			<tr id='<%= dashboardList[i].id %>'>
 				<td class='dashboards-tr-left'>
@@ -29,10 +28,6 @@
 				</td>
 			</tr>
 		<% } %>
-		<script>
-			resetClassesToTableRows();
-			//attachDataToEachItem(dashboardList);
-		</script>
 	</table>
 </div>
 

@@ -61,6 +61,19 @@ app.use(function(req, res, next){
 	}
 	
 	var authMgr = serverApp.authManager;
+	if(req.session.user){
+		authMgr.authByUserId(req.session.user.id, function(err, auth){
+			if(err || !auth){
+				next(new Error('AuthenticationFailed'));
+			}
+			else{
+				req.auth = auth;
+				next();
+			}
+		});
+		return;
+	}
+	
 	authMgr.authByAPIKey(req.headers.apikey, function(err, auth){
 		if(err || !auth){
 			next(new Error('AuthenticationFailed'));

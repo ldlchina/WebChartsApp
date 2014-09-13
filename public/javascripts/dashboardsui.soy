@@ -1,9 +1,11 @@
-{namespace webcharts.ui.dashboards}
+{namespace webchartsapp.ui.dashboards}
 
 /**
   * The dashboard item content.
   * @param dashboardId The id of the dashboard.
   * @param dashboardName The name of the dashboard.
+  * @param dashboardEdit The label of edit.
+  * @param dashboardDelete The label of delete.
   */
 {template .dashboardItem}
 <tr id={$dashboardId} class='dashboard-tr-new'>
@@ -12,7 +14,7 @@
 	</td>
 	<td class='dashboards-tr-right'>
 		<ol>
-			<li class='dashboards-action-item edit'><a>Edit</a></li><li class='dashboards-action-item delete'><a>Delete</a></li>
+			<li class='dashboards-action-item edit'><a>{$dashboardEdit}</a></li><li class='dashboards-action-item delete'><a>{$dashboardDelete}</a></li>
 		</ol>
 	</td>
 </tr>

@@ -13,6 +13,11 @@ $(document).ready(function(){
 	$('#widgets-create-cancel').click(function(sender){
 		$('#model-create-widget').hide();
 	});
+	
+	$('#create_widget_form').submit(onCreateWidgetSubmit);
+	
+	bindActionEvents();
+	loadWidgets();
 });
 
 function clearWidgetList(){
@@ -59,6 +64,48 @@ function loadWidgets(){
 	}
 }
 
+function onCreateWidgetSubmit(sender){
+	var body = {};
+	
+	var inputs = $('#create_widget_form').find('input');
+	for(var i=0; i<inputs.length; i++) {
+		if(inputs[i].name == 'dataurl'){
+			body.dataurl = inputs[i].value;
+		}
+		else if(inputs[i].name == 'interval'){
+			body.interval = inputs[i].value;
+		}
+	}
+	
+	var url = '/api/1.0' + window.location.pathname + '/widgets';
+	sendRequest('post', url, body, function(err, data){
+		if(data){
+			var options = {
+				widgetId:data.id,
+				widgetEdit:'Edit',
+				widgetDelete:'Delete'
+			};
+			
+//			var wl = document.getElementById('dashboard-widgets');
+//			var e = document.createElement('li');
+//			e.classList.add('dashboard-widget-li');
+//			e.id = data.id;
+//			e.draggable = true;
+//			wl.appendChild(e);
+//			e.innerHTML = webchartsapp.ui.dashboard.widgetInner(options);
+			
+			$('.widget-list').append(webchartsapp.ui.dashboard.widget(options));
+			
+			bindActionEvents();
+			loadWidget(data.id);
+			
+			$('#model-create-widget').hide();
+		}
+	});
+	
+	return false;
+}
+
 function editWidgetEvent(sender){
 	alert('edit');
 }
@@ -66,11 +113,18 @@ function editWidgetEvent(sender){
 function deleteWidgetEvent(sender){
 	var parentLi = $(this).parents('li')[0];
 	parentLi = $(parentLi).parents('li')[0];
-	sendRequest('post', '/widgets/' + parentLi.id + '/delete', null, function(err, data){
+	sendRequest('post', '/api/1.0/widgets/' + parentLi.id + '/delete', null, function(err, data){
 		if(!err){
 			$(parentLi).remove();
 		}
 	});
+}
+
+function bindActionEvents(){
+	$('.dashboard-widget-actions-edit').unbind('click');
+	$('.dashboard-widget-actions-delete').unbind('click');
+	$('.dashboard-widget-actions-edit').click(editWidgetEvent);
+	$('.dashboard-widget-actions-delete').click(deleteWidgetEvent);
 }
 
 // on source element

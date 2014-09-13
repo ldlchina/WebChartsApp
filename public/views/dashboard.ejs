@@ -7,6 +7,7 @@
 
 <script src="/javascripts/3p/heartcode-canvasloader-min.js"></script>
 <script src="/javascripts/dashboard.js"></script>
+<script src="/javascripts/dashboardui.js"></script>
 
 
 <div class='dashboard-area' id="dashboard">
@@ -26,25 +27,16 @@
 		</ol>
 	</div>
 	<div class="widgets-area">
-		<ol class='widget-list'>
-			<script>clearWidgetList();</script>
-			<% for(var i=0; i<widgets.length; i++) { %>
-				<li class='dashboard-widget-li' id='<%= widgets[i].id %>' draggable="true">
-					<div class='dashboard-widget'>
-						<div class='dashboard-widget-dnd'></div>
-						<div class='dashboard-widget-content'>
-						</div>
-						<ol class='dashboard-widget-actions'>
-							<li><a class='dashboard-widget-actions-edit'>Edit</a></li><li><a class='dashboard-widget-actions-delete'>Delete</a></li>
-						</ol>
-					</div>
-				</li>
-			<% } %>
-			<script>
-				loadWidgets();
-				$('.dashboard-widget-actions-edit').click(editWidgetEvent);
-				$('.dashboard-widget-actions-delete').click(deleteWidgetEvent);
-			</script>
+		<ol class='widget-list' id='dashboard-widgets'>
+			<% for(var i=0; i<widgets.length; i++) { %><li class='dashboard-widget-li' id='<%= widgets[i].id %>' draggable="true">
+				<div class='dashboard-widget'>
+					<div class='dashboard-widget-dnd'></div>
+					<div class='dashboard-widget-content'></div>
+					<ol class='dashboard-widget-actions'>
+						<li><a class='dashboard-widget-actions-edit'>Edit</a></li><li><a class='dashboard-widget-actions-delete'>Delete</a></li>
+					</ol>
+				</div>
+			</li><% } %>
 		</ol>
 	</div>
 </div>
@@ -53,7 +45,7 @@
 	<div class="modal-inner">
 		<div class="modal-display-area">
 			<h2>Create a new widget</h2>
-			<form class='form-modal' id='create_widget_form' method="POST" action="/widgets">
+			<form class='form-modal' id='create_widget_form'>
 				<div class='form-body form-body-modal'>
 					<label for="widget_dataUrl">
 						Data Url

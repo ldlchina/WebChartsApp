@@ -64,6 +64,26 @@ var addRoute = function(options){
 		});
     });
 	
+	// delete a dashboard
+    expressApp.post('/api/1.0/dashboards/:dashboardid/delete', function(req, res, next){
+        console.log('post ==> /api/1.0/dashboards/:dashboardid/delete');
+		
+		var id = req.params.dashboardid;
+		if(!id || id == ''){
+			next(new Error('invalidDashboardId'));
+			return;
+		}
+		
+		dashboardMgr.deleteDashboardById(id, function(err, dashboard){
+			if(err){
+				next(err);
+			}
+			else{
+				res.send(200);
+			}
+		});
+    });
+	
     return this;
 };
 

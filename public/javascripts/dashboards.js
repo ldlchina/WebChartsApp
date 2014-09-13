@@ -10,6 +10,8 @@ $(document).ready(function(){
 	});
 	
 	$('#form-create-dashboard').submit(onCreateDashboardSubmit);
+	
+	resetClassesToTableRows();
 });
 
 function clearDashboardList(){
@@ -31,7 +33,7 @@ function editDashboardEvent(sender){
 
 function deleteDashboardEvent(sender){
 	var parentTr = $(this).parents('tr')[0];
-	sendRequest('post', '/dashboards/' + parentTr.id + '/delete', null, function(err, data){
+	sendRequest('post', '/api/1.0/dashboards/' + parentTr.id + '/delete', null, function(err, data){
 		if(!err){
 			$(parentTr).remove();
 			resetClassesToTableRows();
@@ -49,7 +51,7 @@ function onCreateDashboardSubmit(sender){
 		}
 	}
 	
-	sendRequest('post', '/dashboards', body, function(err, data){
+	sendRequest('post', '/api/1.0/dashboards', body, function(err, data){
 		if(data){
 			var options = {
 				dashboardId:data.id,
@@ -57,7 +59,7 @@ function onCreateDashboardSubmit(sender){
 				dashboardEdit:'Edit',
 				dashboardDelete:'Delete'
 			};
-			$('.dashboards-tb').append(webcharts.ui.dashboards.dashboardItem(options));
+			$('.dashboards-tb').append(webchartsapp.ui.dashboards.dashboardItem(options));
 			resetClassesToTableRows();
 
 			$('#model-create-dashboard').hide();

@@ -43,27 +43,6 @@ var addRoute = function(options){
 		});
     });
 	
-	// create a new dashboard
-    expressApp.post('/dashboards', function(req, res, next){
-        console.log('post ==> /dashboards');
-		
-		if(!req.session.user){
-			res.redirect('/users/login');
-			return;
-		}
-		
-		var options = req.body;
-		options.owner = req.session.user.id;
-		dashboardMgr.addDashboard(options, function(err, dashboard){
-			if(err){
-				next(err);
-			}
-			else{
-				res.send(200, dashboard);
-			}
-		});
-    });
-	
 	// query a dashboard
     expressApp.get('/dashboards/:dashboardid', function(req, res, next){
         console.log('get ==> /dashboards/:dashboardid');
@@ -96,31 +75,6 @@ var addRoute = function(options){
 						res.render('dashboard', dashboardStrings);
 					}
 				});
-			}
-		});
-    });
-	
-	// delete a dashboard
-    expressApp.post('/dashboards/:dashboardid/delete', function(req, res, next){
-        console.log('post ==> /dashboards/:dashboardid/delete');
-		
-		if(!req.session.user){
-			res.redirect('/users/login');
-			return;
-		}
-		
-		var id = req.params.dashboardid;
-		if(!id || id == ''){
-			next(new Error(errorsStrings.dashboards.invalidDashboardId));
-			return;
-		}
-		
-		dashboardMgr.deleteDashboardById(id, function(err, dashboard){
-			if(err){
-				next(err);
-			}
-			else{
-				res.send(200);
 			}
 		});
     });
