@@ -38,6 +38,9 @@ var addRoute = function(options){
 				var dashboardsStrings = uiStrings.dashboards;
 				res.locals.userAccount = req.session.user.email;
 				res.locals.dashboardList = dashboards;
+				for(var i = 0; i < res.locals.dashboardList.length; i++){
+					res.locals.dashboardList[i].privilege = res.locals.dashboardList[i].privilege == 'public' ? 'shared' : '';
+				}
 				res.render('dashboards', dashboardsStrings);
 			}
 		});
@@ -63,16 +66,38 @@ var addRoute = function(options){
 				next(err);
 			}
 			else{
-				widgetMgr.widgetsByDashboardId(id, function(err, widgets){
+				dashboardMgr.accessLevel(req.session.user.id, dashboard, function(err, data){
 					if(err){
 						next(err);
 					}
 					else{
-						var dashboardStrings = uiStrings.dashboard;
-						res.locals.dashboardName = dashboard.name;
-						res.locals.userAccount = req.session.user.email;
-						res.locals.widgets = widgets;
-						res.render('dashboard', dashboardStrings);
+						if(data == 'ad'){
+							next(new Error(errorsStrings.general.accessDenied));
+							return;
+						}
+						
+						widgetMgr.widgetsByDashboardId(id, function(err, widgets){
+							if(err){
+								next(err);
+							}
+							else{
+								var dashboardStrings = uiStrings.dashboard;
+								res.locals.dashboardName = dashboard.name;
+								res.locals.userAccount = req.session.user.email;
+								res.locals.widgets = widgets;
+								if(data == 'ro'){
+									dashboardStrings.dashboardAddWidget = '';
+									dashboardStrings.dashboardEditWidget = '';
+									dashboardStrings.dashboardDeleteWidget = '';
+								}
+								else{
+									dashboardStrings.dashboardAddWidget = dashboardStrings.addWidget;
+									dashboardStrings.dashboardEditWidget = dashboardStrings.editWidget;
+									dashboardStrings.dashboardDeleteWidget = dashboardStrings.deleteWidget;
+								}
+								res.render('dashboard', dashboardStrings);
+							}
+						});
 					}
 				});
 			}

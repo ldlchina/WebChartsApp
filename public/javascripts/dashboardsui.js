@@ -7,5 +7,5 @@ if (typeof webchartsapp.ui.dashboards == 'undefined') { webchartsapp.ui.dashboar
 
 
 webchartsapp.ui.dashboards.dashboardItem = function(opt_data, opt_ignored) {
-  return '<tr id=' + soy.$$escapeHtml(opt_data.dashboardId) + ' class=\'dashboard-tr-new\'><td class=\'dashboards-tr-left\'><a class=\'dashboards-item-name\' href=\'/dashboards/' + soy.$$escapeHtml(opt_data.dashboardId) + '\'>' + soy.$$escapeHtml(opt_data.dashboardName) + '</a></td><td class=\'dashboards-tr-right\'><ol><li class=\'dashboards-action-item edit\'><a>' + soy.$$escapeHtml(opt_data.dashboardEdit) + '</a></li><li class=\'dashboards-action-item delete\'><a>' + soy.$$escapeHtml(opt_data.dashboardDelete) + '</a></li></ol></td></tr>';
+  return '<tr id=' + soy.$$escapeHtml(opt_data.dashboardId) + ' class=\'dashboard-tr-new\'><td class=\'dashboards-tr-left\'><a class=\'dashboards-item-name\' href=\'/dashboards/' + soy.$$escapeHtml(opt_data.dashboardId) + '\'>' + soy.$$escapeHtml(opt_data.dashboardName) + '</a><div class=\'dashboards-item-privilege\'>' + soy.$$escapeHtml(opt_data.dashboardShared) + '</div></td><td class=\'dashboards-tr-right\'><ol><li class=\'dashboards-action-item edit\'><a>' + soy.$$escapeHtml(opt_data.dashboardEdit) + '</a></li><li class=\'dashboards-action-item delete\'><a>' + soy.$$escapeHtml(opt_data.dashboardDelete) + '</a></li></ol></td></tr>';
 };

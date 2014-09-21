@@ -6,11 +6,13 @@
   * @param dashboardName The name of the dashboard.
   * @param dashboardEdit The label of edit.
   * @param dashboardDelete The label of delete.
+  * @param dashboardShared The item is shared or not.
   */
 {template .dashboardItem}
 <tr id={$dashboardId} class='dashboard-tr-new'>
 	<td class='dashboards-tr-left'>
 		<a class='dashboards-item-name' href='/dashboards/{$dashboardId}'>{$dashboardName}</a>
+		<div class='dashboards-item-privilege'>{$dashboardShared}</div>
 	</td>
 	<td class='dashboards-tr-right'>
 		<ol>

@@ -48,6 +48,12 @@
 	margin-left: 5px;
 }
 
+.dashboards-item-privilege {
+	display: inline-block;
+	margin-left: 5px;
+	font-style: italic;
+}
+
 #dashboards-create-commit {
 	width: 70px;
 }

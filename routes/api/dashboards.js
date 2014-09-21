@@ -35,6 +35,7 @@ var addRoute = function(options){
 		
 		var options = req.body;
 		options.owner = req.auth.userid;
+		options.privilege = options.share == 'true' ? 'public' : 'private';
 		dashboardMgr.addDashboard(options, function(err, dashboard){
 			if(err){
 				next(err);
@@ -59,7 +60,19 @@ var addRoute = function(options){
 				next(err);
 			}
 			else{
-				res.send(200, dashboard);
+				dashboardMgr.accessLevel(req.auth.userid, dashboard, function(err, data){
+					if(err){
+						next(err);
+					}
+					else{
+						if(data == 'ad'){
+							next(new Error('AccessDenied'));
+							return;
+						}
+						
+						res.send(200, dashboard);
+					}
+				});
 			}
 		});
     });
@@ -70,7 +83,7 @@ var addRoute = function(options){
 		
 		var id = req.params.dashboardid;
 		if(!id || id == ''){
-			next(new Error('invalidDashboardId'));
+			next(new Error('InvalidDashboardId'));
 			return;
 		}
 		

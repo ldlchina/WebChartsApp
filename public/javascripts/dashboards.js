@@ -49,6 +49,9 @@ function onCreateDashboardSubmit(sender){
 		if(inputs[i].name == 'name'){
 			body.name = inputs[i].value;
 		}
+		else if(inputs[i].name == 'share'){
+			body.share = inputs[i].checked;
+		}
 	}
 	
 	sendRequest('post', '/api/1.0/dashboards', body, function(err, data){
@@ -56,6 +59,7 @@ function onCreateDashboardSubmit(sender){
 			var options = {
 				dashboardId:data.id,
 				dashboardName:data.name,
+				dashboardShared:data.privilege == 'public' ? 'shared' : '',
 				dashboardEdit:'Edit',
 				dashboardDelete:'Delete'
 			};

@@ -2,6 +2,10 @@
 
 var errorsStrings = function(){}
 
+errorsStrings.general = {
+	accessDenied:'Access denied'
+};
+
 errorsStrings.signup = {
 	emailUsed:'The email is used',
 	nullError:'All fields should be not null',

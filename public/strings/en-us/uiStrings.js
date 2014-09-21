@@ -10,6 +10,13 @@ uiStrings.main = {
 	copyright:'@Copyright ldl 2014'
 };
 
+uiStrings.general = {
+	dashboards:'Dashboards',
+	add:'Add',
+	edit:'Edit',
+	delete:'Delete'
+};
+
 uiStrings.login = {
 	title:'WebCharts - Login',
 	signupText:uiStrings.main.signupText, 
@@ -37,6 +44,10 @@ uiStrings.dashboard = {
 	loginText:uiStrings.main.loginText, 
 	logoutText:uiStrings.main.logoutText, 
 	copyright:uiStrings.main.copyright,
+	dashboards:uiStrings.general.dashboards,
+	editWidget:uiStrings.general.edit,
+	deleteWidget:uiStrings.general.delete,
+	addWidget:'Add Widget'
 };
 
 module.exports = uiStrings;

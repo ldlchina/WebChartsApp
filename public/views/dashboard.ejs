@@ -18,10 +18,10 @@
 			</li>
 			<ol class='dashboard-toolbar-right'>
 				<li>
-					<a id="dashboard-addWidget">Add Widget</a>
+					<a id="dashboard-addWidget"><%= dashboardAddWidget %></a>
 				</li>
 				<li>
-					<a id="dashboard-dashboards" href="/dashboards">Dashboards</a>
+					<a id="dashboard-dashboards" href="/dashboards"><%= dashboards %></a>
 				</li>
 			</ol>
 		</ol>
@@ -33,7 +33,7 @@
 					<div class='dashboard-widget-dnd'></div>
 					<div class='dashboard-widget-content'></div>
 					<ol class='dashboard-widget-actions'>
-						<li><a class='dashboard-widget-actions-edit'>Edit</a></li><li><a class='dashboard-widget-actions-delete'>Delete</a></li>
+						<li><a class='dashboard-widget-actions-edit'><%= dashboardEditWidget %></a></li><li><a class='dashboard-widget-actions-delete'><%= dashboardDeleteWidget %></a></li>
 					</ol>
 				</div>
 			</li><% } %>

@@ -20,6 +20,7 @@
 			<tr id='<%= dashboardList[i].id %>'>
 				<td class='dashboards-tr-left'>
 					<a class='dashboards-item-name' href='/dashboards/<%= dashboardList[i].id %>'><%= dashboardList[i].name %></a>
+					<div class='dashboards-item-privilege'><%= dashboardList[i].privilege %></div>
 				</td>
 				<td class='dashboards-tr-right'>
 					<ol>
@@ -37,12 +38,14 @@
 			<h2>Create a new Dashboard</h2>
 			<form class='form-modal' id='form-create-dashboard'>
 				<div class='form-body form-body-modal'>
-					<label for="dashboard_name">
-						Dashboard name
-					</label>
+					<label for="dashboard_name">Name</label>
 					<input placeholder="Dashboard name" autocapitalize="off" autocorrect="off" autofocus="autofocus" class="input-block" id="dashboard_name" name="name" tabindex="1" type="text">
-					<div class='button' id='dashboards-create-cancel' tabindex="3">Cancel</div>
-					<input class="button" id='dashboards-create-commit' tabindex="2" type="submit" value="OK">
+					<label for="dashboard_privilege">Privilege</label>
+					<section class="input-block">
+						<input id="dashboard_share" name="share" tabindex="2" type="checkbox"/><span>Share</span>
+					</section>
+					<div class='button' id='dashboards-create-cancel' tabindex="4">Cancel</div>
+					<input class="button" id='dashboards-create-commit' tabindex="3" type="submit" value="OK">
 				</div>
 			</form>
 		</div>
