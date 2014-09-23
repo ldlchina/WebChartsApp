@@ -36,11 +36,7 @@ function loadWidget(id){
 	$(widgetContent).empty();
 	attachDragAndDropEvents(widgetLi);
 	
-	var cl = new CanvasLoader(widgetContent.id);
-	cl.show(); 
-
-	var loaderObj = $(widgetContent).children("#canvasLoader")[0];
-	$(loaderObj).css('padding-top', '180px');
+	startLoading(widgetContent.id);
 	
 	sendRequest('get', '/widgets/' + id, null, function(err, data){
 		if(err || !data){
