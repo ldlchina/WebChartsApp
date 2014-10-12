@@ -7,10 +7,6 @@ var bodyParser = require('body-parser');
 var serverApp =  require('./lib/serverApplication.js');
 var session = require('express-session');
 
-var config = serverApp.config;
-var listeningPort = config.get('port');
-process.env.PORT = 8443;
-
 var app = express();
 
 // view engine setup

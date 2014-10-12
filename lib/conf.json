@@ -8,6 +8,16 @@
             "host": "localhost",
             "port": 27017,
             "name": "webcharts"
-        }
-    }
+        },
+		"node_env":"development"
+    },
+	"prod":{
+		"webcharts_home": "http://localhost:3000",
+        "webcharts_db": {
+            "host": "localhost",
+            "port": 27017,
+            "name": "webcharts"
+        },
+		"node_env":"production"
+	}
 }

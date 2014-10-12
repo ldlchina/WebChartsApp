@@ -37,7 +37,7 @@ var addRoute = function(options){
 				next(err);
 			}
 			else{
-				res.cookie('uid', user.id, { maxAge: cookieMaxAge });  
+				res.cookie('uid', user.id, { maxAge: cookieMaxAge });
 
 				req.session.regenerate(function(){
 					req.session.user = user;
@@ -83,7 +83,7 @@ var addRoute = function(options){
 	expressApp.get('/users/logout', function(req, res, next){
         console.log('get ==> /users/logout');
 		
-		res.cookie('uid', '', { maxAge: 1000 * 60 * 60 * 24 * 30 });
+		res.clearCookie('uid');
 
 		req.session.destroy(function(){
 			res.redirect('/users/login');
